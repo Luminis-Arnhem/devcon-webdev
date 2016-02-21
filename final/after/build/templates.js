@@ -1,1 +1,1 @@
-angular.module("templates", []).run(["$templateCache", function($templateCache) {$templateCache.put("partials/partial.html","<div>from partial</div>");}]);
+angular.module("templates", []).run(["$templateCache", function($templateCache) {$templateCache.put("people/partials/people.html","<div>people</div>");}]);

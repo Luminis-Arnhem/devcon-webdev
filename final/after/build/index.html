@@ -1,12 +1,18 @@
+<!DOCTYPE html> 
 <html>
     <head>
-        <title>Devcon Front-end web development for back-end developers</title>
-        <style src="styles.css"/>
+    <meta charset="utf-8" />
+        <title>Devcon Front-end web development for back-end developers </title>
+        <link rel="stylesheet" href="styles.css"/>
+        <link href='https://fonts.googleapis.com/css?family=Ubuntu:500,700,500italic,700italic,400,400italic,300,300italic' rel='stylesheet' type='text/css'>
     </head>
     
-    <body>
-        <script src="templates.js"/>
-        <script src="custom.js"/>
-        <script src="lib.js"/>
+    <body> 
+        {{1+1}}
+        <main ui-view>
+        </main>
+        <script src="libs.js"></script>
+        <script src="templates.js"></script>
+        <script src="custom.js"></script>
     </body>
 </html>
