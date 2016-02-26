@@ -1,14 +1,19 @@
 ﻿var config = require('./gulp.config')();
 var gulp = require('gulp');
 var p = require('gulp-load-plugins')({lazy: true});
-var stylish = require('gulp-tslint-stylish');
 var args = require('yargs').argv;
 var lib = require('bower-files')();
 
 
 var tsProject = p.typescript.createProject(config.tsProject);
 
-gulp.task('buildLibs', function () {
+
+/**
+ * Builds the external libraries into a single javascript file
+ * On release it uglifies
+ * @return {Stream}
+ */
+gulp.task('build-libs', function () {
     return gulp.src(lib.ext('js').files)
         .pipe(p.concat(config.out.libs))
         .pipe(args.release ? p.uglify() : p.util.noop())
@@ -16,14 +21,23 @@ gulp.task('buildLibs', function () {
         .pipe(p.connect.reload());
 });
 
-gulp.task('buildTemplates', function () {
+/**
+ * Builds the typescript into a single javascript file
+ * @return {Stream}
+ */
+gulp.task('build-templates', function () {
     return gulp.src(config.html)
         .pipe(p.angularTemplatecache(config.out.templates, { standalone: true }))
         .pipe(gulp.dest(config.build))
         .pipe(p.connect.reload());
 });
 
-gulp.task('buildTs', function () {
+/**
+ * Builds the typescript into a single javascript file
+ * adds source maps on debug and minification and ngAnnotate on release
+ * @return {Stream}
+ */
+gulp.task('build-ts', function () {
     return gulp.src([config.ts.dts,config.ts.ts])
         .pipe(!args.release  ? p.sourcemaps.init() : p.util.noop())
         .pipe(p.typescript(config.tsProject))
@@ -39,7 +53,8 @@ gulp.task('buildTs', function () {
  * Compile scss to css and minifying it on release
  * @return {Stream}
  */
-gulp.task('buildSass', function () {
+gulp.task('build-sass', function () {
+    log("Bulding sass")
     return gulp.src(config.sass)
         .pipe(p.sass({
             sourceComments: !args.release
@@ -48,19 +63,23 @@ gulp.task('buildSass', function () {
         })))
         .pipe(p.autoprefixer())
         .pipe(args.release ? p.minifyCss() : p.util.noop())
+        .pipe(p.concat(config.out.css))
         .pipe(gulp.dest(config.build))
+        .on("error", p.notify.onError({
+            message: 'Error: <%= error.message %>'
+        }))
         .pipe(p.connect.reload());
 });
 
 /**
- * vet the code
+ * runs ts lint
  * @return {Stream}
  */
-gulp.task('vet', function() {
+gulp.task('tslint', function() {
     return gulp
         .src(config.ts.ts)
         .pipe(p.tslint())
-        .pipe(p.tslint.report(p.stylish, {
+        .pipe(p.tslint.report(p.tslintStylish, {
             emitError: true,
             sort: true,
             bell: true,
@@ -70,16 +89,27 @@ gulp.task('vet', function() {
         }));
 });
 
-gulp.task('copyImages', function () {
+gulp.task('copy-images', function () {
     return copy(config.images);
 });
+gulp.task('copy-fonts', function () {
+    return gulp
+        .src(config.fonts)
+        .pipe(gulp.dest(config.out.fonts));
+});
 
-gulp.task('copyIndex', function () {
+gulp.task('copy-index', function () {
     return copy(config.index);
 });
 
+
+/**
+ * deletes all the content from the build folder
+ * @return {Stream}
+ */
 gulp.task('clean', function () {
-    return gulp.src([config.build], { read: false })
+    log("Cleaning " + config.build + "folder");
+    return gulp.src(config.build, { read: false })
         .pipe(p.clean());
 });
 
@@ -95,7 +125,7 @@ gulp.task('connect', function() {
  * if not release also starts server
  * @return {Stream}
  */
-gulp.task('build', ['buildTs', 'buildTemplates', 'buildLibs', 'copyImages', 'buildSass','copyIndex','vet'], function () {
+gulp.task('build', ['build-ts', 'build-templates', 'build-libs', 'copy-images', 'build-sass','copy-index','copy-fonts','tslint'], function () {
     if(!args.release){
         return gulp.start('watch-dev');
     }
@@ -106,12 +136,11 @@ gulp.task('build', ['buildTs', 'buildTemplates', 'buildLibs', 'copyImages', 'bui
  * @return {Stream}
  */
 gulp.task('watch-dev', function () {
-    gulp.watch(config.html, ['buidlTemplates']);
-    gulp.watch(config.images, ['copyImages']);
-    gulp.watch(config.fonts, ['copyFonts']);
-    gulp.watch(config.ts.ts, ['buildTs','vet']);
-    gulp.watch(config.sass, ['buildSass']);
-    gulp.watch(config.index, ['copyIndex']);
+    gulp.watch(config.html, ['build-templates']);
+    gulp.watch(config.images, ['copy-images']);
+    gulp.watch(config.ts.ts, ['build-ts','tslint']);
+    gulp.watch(config.sass, ['build-sass']);
+    gulp.watch(config.index, ['copy-index']);
 });
 
 gulp.task('clean-build', ['clean'], function () {
@@ -148,10 +177,10 @@ function log(msg) {
     if (typeof(msg) === 'object') {
         for (var item in msg) {
             if (msg.hasOwnProperty(item)) {
-                $.util.log($.util.colors.blue(msg[item]));
+                p.util.log(p.util.colors.blue(msg[item]));
             }
         }
     } else {
-        $.util.log($.util.colors.blue(msg));
+        p.util.log(p.util.colors.blue(msg));
     }
 }

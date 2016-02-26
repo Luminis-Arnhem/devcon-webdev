@@ -3,6 +3,7 @@ module.exports = function() {
     var app = './app/';
     var build = './build/';
     var typings = './typings/';
+    var bower_components = './bower_components/';
     
     var tsProject = {
         declarationFiles: false,
@@ -18,6 +19,8 @@ module.exports = function() {
         out:{
             custom : 'custom.js',
             libs : 'libs.js',
+            css : 'styles.css',
+            fonts : build + 'fonts/',
             templates : 'templates.js',
         },
         ts: {
@@ -26,9 +29,14 @@ module.exports = function() {
         },
         html : app + '**/partials/**/*.html',
         index : app + 'index.html',
-        fonts : app + '/**/fonts/**/*',
+        fonts : [
+            app + '/**/fonts/**/*',
+            bower_components + 'font-awesome/fonts/*'],
         images : app + '/**/images/**/*',
-        sass : app + '/**/*.scss',
+        sass : [
+            app + '/**/*.scss',
+            bower_components + 'font-awesome/scss/font-awesome.scss'
+            ],
         tsProject : tsProject
     };
     return config;

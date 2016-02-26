@@ -5,7 +5,6 @@ module  Common {
     const appName = "devcon-webdev";
     let appModule: angular.IModule = angular.module(appName, ["templates", "ui.router", "people"]);
 
-    /* @ngInject */
     appModule.config(($urlRouterProvider: angular.ui.IUrlRouterProvider) => {
         $urlRouterProvider.otherwise("/people");
     });
