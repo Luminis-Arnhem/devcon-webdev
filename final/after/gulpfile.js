@@ -1,12 +1,10 @@
 ﻿var config = require('./gulp.config')();
 var gulp = require('gulp');
-var p = require('gulp-load-plugins')({lazy: true});
+var p = require('gulp-load-plugins')({ lazy: true });
 var args = require('yargs').argv;
 var lib = require('bower-files')();
 
-
 var tsProject = p.typescript.createProject(config.tsProject);
-
 
 /**
  * Builds the external libraries into a single javascript file
@@ -38,13 +36,13 @@ gulp.task('build-templates', function () {
  * @return {Stream}
  */
 gulp.task('build-ts', function () {
-    return gulp.src([config.ts.dts,config.ts.ts])
-        .pipe(!args.release  ? p.sourcemaps.init() : p.util.noop())
+    return gulp.src([config.ts.dts, config.ts.ts])
+        .pipe(!args.release ? p.sourcemaps.init() : p.util.noop())
         .pipe(p.typescript(config.tsProject))
         .pipe(p.concat(config.out.custom))
-        .pipe(!args.release  ? p.sourcemaps.write() : p.util.noop())
-        .pipe(args.release  ? p.ngAnnotate() : p.util.noop())
-        .pipe(args.release  ? p.uglify() : p.util.noop())
+        .pipe(!args.release ? p.sourcemaps.write() : p.util.noop())
+        .pipe(args.release ? p.ngAnnotate() : p.util.noop())
+        .pipe(args.release ? p.uglify() : p.util.noop())
         .pipe(gulp.dest(config.build))
         .pipe(p.connect.reload());
 });
@@ -75,7 +73,7 @@ gulp.task('build-sass', function () {
  * runs ts lint
  * @return {Stream}
  */
-gulp.task('tslint', function() {
+gulp.task('tslint', function () {
     return gulp
         .src(config.ts.ts)
         .pipe(p.tslint())
@@ -87,6 +85,39 @@ gulp.task('tslint', function() {
         })).on("error", p.notify.onError({
             message: 'Error: <%= error.message %>'
         }));
+});
+
+/**
+ * Bump the version
+ * --type=pre will bump the prerelease version *.*.*-x
+ * --type=patch or no flag will bump the patch version *.*.x
+ * --type=minor will bump the minor version *.x.*
+ * --type=major will bump the major version x.*.*
+ * --ver=1.2.3 will bump to a specific version and ignore other flags
+ */
+gulp.task('bump', function () {
+    var msg = 'Bumping versions';
+    var type = args.type;
+    var version = args.ver;
+    var options = {};
+    if (version) {
+        options.version = version;
+        msg += ' to ' + version;
+    } else {
+        options.type = type;
+        msg += ' for a ' + type;
+    }
+    log(msg);
+
+    return gulp
+        .src(config.packages)
+        .pipe(p.bump(options))
+        .pipe(gulp.dest('./'))
+        .pipe(p.git.commit('bumps package version'))
+        .pipe(p.filter('package.json'))
+        // **tag it in the repository**
+        .pipe(p.tagVersion());
+    ;
 });
 
 gulp.task('copy-images', function () {
@@ -102,7 +133,6 @@ gulp.task('copy-index', function () {
     return copy(config.index);
 });
 
-
 /**
  * deletes all the content from the build folder
  * @return {Stream}
@@ -113,11 +143,11 @@ gulp.task('clean', function () {
         .pipe(p.clean());
 });
 
-gulp.task('connect', function() {
-  p.connect.server({
-    root: config.build,
-    livereload: true
-  });
+gulp.task('connect', function () {
+    p.connect.server({
+        root: config.build,
+        livereload: true
+    });
 });
 
 /**
@@ -125,8 +155,8 @@ gulp.task('connect', function() {
  * if not release also starts server
  * @return {Stream}
  */
-gulp.task('build', ['build-ts', 'build-templates', 'build-libs', 'copy-images', 'build-sass','copy-index','copy-fonts','tslint'], function () {
-    if(!args.release){
+gulp.task('build', ['build-ts', 'build-templates', 'build-libs', 'copy-images', 'build-sass', 'copy-index', 'copy-fonts', 'tslint'], function () {
+    if (!args.release) {
         return gulp.start('watch-dev');
     }
 });
@@ -138,7 +168,7 @@ gulp.task('build', ['build-ts', 'build-templates', 'build-libs', 'copy-images', 
 gulp.task('watch-dev', function () {
     gulp.watch(config.html, ['build-templates']);
     gulp.watch(config.images, ['copy-images']);
-    gulp.watch(config.ts.ts, ['build-ts','tslint']);
+    gulp.watch(config.ts.ts, ['build-ts', 'tslint']);
     gulp.watch(config.sass, ['build-sass']);
     gulp.watch(config.index, ['copy-index']);
 });
@@ -151,11 +181,10 @@ gulp.task('clean-build', ['clean'], function () {
  * cleans builds and if release sta
  */
 gulp.task('default', ['clean-build'], function () {
-    if(!args.release){
+    if (!args.release) {
         return gulp.start('connect');
     }
 });
-
 
 //// helper functions //////
 
@@ -174,7 +203,7 @@ var copy = function (source) {
  * Can pass in a string, object or array.
  */
 function log(msg) {
-    if (typeof(msg) === 'object') {
+    if (typeof (msg) === 'object') {
         for (var item in msg) {
             if (msg.hasOwnProperty(item)) {
                 p.util.log(p.util.colors.blue(msg[item]));
