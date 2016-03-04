@@ -1,7 +1,7 @@
 /// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="../people/people.module.ts" />
 
-module  Common {
+namespace Common {
     const appName = "devcon-webdev";
     let appModule: angular.IModule = angular.module(appName, ["templates", "ui.router", "people"]);
 

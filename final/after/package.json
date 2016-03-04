@@ -1,6 +1,6 @@
 {
   "name": "devcon-webdev",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "devDependencies": {
     "bower-files": "^3.11.3",
     "gulp": "^3.9.0",
@@ -24,7 +24,13 @@
     "gulp-typescript": "2.10.0",
     "gulp-uglify": "^1.5.1",
     "gulp-util": "^3.0.7",
+    "jasmine": "^2.4.1",
     "jshint-stylish": "^2.1.0",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-jasmine": "^0.3.7",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-spec-reporter": "0.0.24",
+    "phantomjs-prebuilt": "^2.1.4",
     "tslint": "^3.4.0",
     "tslint-stylish": "^2.1.0-beta",
     "typescript": "^1.7.3",

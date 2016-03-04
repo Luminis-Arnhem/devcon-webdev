@@ -15,6 +15,7 @@ module.exports = function () {
     var config = {
         app: app,
         build: build,
+        buildTest: 'build-test/',
         out: {
             custom: 'custom.js',
             libs: 'libs.js',
@@ -24,6 +25,7 @@ module.exports = function () {
         },
         ts: {
             ts: app + '**/*.ts',
+            spec: app + '**/*.spec.ts',
             dts: typings + '**/*.ts'
         },
         html: app + '**/partials/**/*.html',

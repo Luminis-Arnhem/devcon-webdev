@@ -1,16 +1,15 @@
 /// <reference path="../../typings/tsd.d.ts" />
+/// <reference path="people.controller.ts" />
 
-module People {
+namespace People {
     const modulename = "people";
     let module: angular.IModule = angular.module(modulename, ["templates"]);
     module.config(($stateProvider) => {
         $stateProvider.state("people", {
-            controller: ($http: angular.IHttpService) => {
-                $http.get("/test");
-                console.log("people ctrl");
-            },
+            controller: "PeopleController as ctrl",
             templateUrl: "people/partials/people.html",
             url: "/people",
         });
-    });
+    })
+        .controller("PeopleController", PeopleController);
 }
