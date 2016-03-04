@@ -19,12 +19,14 @@ module.exports = function () {
         out: {
             custom: 'custom.js',
             libs: 'libs.js',
+            tests: 'test.js',
             css: 'styles.css',
-            fonts: build + 'fonts/',
+            fonts: 'fonts/',
             templates: 'templates.js',
         },
         ts: {
             ts: app + '**/*.ts',
+            noSpec:'!**/*.spec.ts',
             spec: app + '**/*.spec.ts',
             dts: typings + '**/*.ts'
         },

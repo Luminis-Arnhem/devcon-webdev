@@ -19,7 +19,16 @@ gulp.task('build-libs', function () {
         .pipe(gulp.dest(config.build))
         .pipe(p.connect.reload());
 });
-
+/**
+ * Builds the external libraries into a single javascript file for test
+ * On release it uglifies
+ * @return {Stream}
+ */
+gulp.task('build-libs-test', function () {
+    return gulp.src(lib.dev().ext('js').files)
+        .pipe(p.concat(config.out.libs))
+        .pipe(gulp.dest(config.buildTest));
+});
 /**
  * Builds the typescript into a single javascript file
  * @return {Stream}
@@ -37,13 +46,13 @@ gulp.task('build-templates', function () {
  * @return {Stream}
  */
 gulp.task('build-ts', function () {
-    return gulp.src([config.ts.dts, config.ts.ts])
+    return gulp.src([config.ts.dts,config.ts.ts,config.ts.noSpec])
         .pipe(!args.release ? p.sourcemaps.init() : p.util.noop())
         .pipe(p.typescript(config.tsProject))
         .pipe(p.concat(config.out.custom))
         .pipe(!args.release ? p.sourcemaps.write() : p.util.noop())
         .pipe(args.release ? p.ngAnnotate() : p.util.noop())
-        .pipe(args.release ? p.uglify() : p.util.noop())
+        .pipe(args.release ? p.uglify({mangle:false}) : p.util.noop())
         .pipe(gulp.dest(config.build))
         .pipe(p.connect.reload());
 });
@@ -52,9 +61,10 @@ gulp.task('build-ts', function () {
  * Builds the typescript spec files into javascript spec files
  * @return {Stream}
  */
-gulp.task('build-spec', function () {
-    return gulp.src([config.ts.dts, config.ts.spec])
+gulp.task('build-test', function () {
+    return gulp.src([config.ts.dts,config.ts.ts])
         .pipe(p.typescript(config.tsProject))
+        .pipe(p.concat(config.out.tests))
         .pipe(gulp.dest(config.buildTest));
 });
 
@@ -137,7 +147,7 @@ gulp.task('copy-images', function () {
 gulp.task('copy-fonts', function () {
     return gulp
         .src(config.fonts)
-        .pipe(gulp.dest(config.out.fonts));
+        .pipe(gulp.dest(config.build + config.out.fonts));
 });
 
 gulp.task('copy-index', function () {
@@ -163,7 +173,7 @@ gulp.task('copy-index', function () {
 /**
  * Run test once and exit
  */
-gulp.task('test', function (done) {
+gulp.task('test',['build-test','build-libs-test', 'build-templates'], function (done) {
     new Server({
         configFile: __dirname + '/karma.conf.js',
         singleRun: true
@@ -194,6 +204,8 @@ gulp.task('connect', function () {
 gulp.task('build', ['build-ts', 'build-templates', 'build-libs', 'copy-images', 'build-sass', 'copy-index', 'copy-fonts', 'tslint'], function () {
     if (!args.release) {
         return gulp.start('watch-dev');
+    }else{
+        return gulp.start('test');
     }
 });
 

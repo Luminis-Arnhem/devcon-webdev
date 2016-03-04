@@ -20,6 +20,7 @@ build/Release
 
 #project build directory
 build
+build-test
 
 # Dependency directory
 node_modules

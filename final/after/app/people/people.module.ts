@@ -4,6 +4,8 @@
 namespace People {
     const modulename = "people";
     let module: angular.IModule = angular.module(modulename, ["templates"]);
+
+    /* @ngInject */
     module.config(($stateProvider) => {
         $stateProvider.state("people", {
             controller: "PeopleController as ctrl",
