@@ -1,5 +1,4 @@
-﻿
-namespace DevCon.WebDev.Server.Models
+﻿namespace DevCon.WebDev.Server.Models
 {
     public class Venue
     {

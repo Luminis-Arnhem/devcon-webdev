@@ -34,6 +34,21 @@ namespace DevCon.WebDev.Controllers
                 Key = "cinema-5",
                 Name = "Cinema 5"
             });
+            venues.Add(new Venue()
+            {
+                Key = "cinema-6",
+                Name = "Cinema 6"
+            });
+            venues.Add(new Venue()
+            {
+                Key = "cinema-6",
+                Name = "Cinema 6"
+            });
+            venues.Add(new Venue()
+            {
+                Key = "cinema-7",
+                Name = "Cinema 7"
+            });
             return venues;
         }
     }
