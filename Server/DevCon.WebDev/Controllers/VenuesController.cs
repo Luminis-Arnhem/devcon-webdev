@@ -26,6 +26,11 @@ namespace DevCon.WebDev.Controllers
             var venues = new List<Venue>();
             venues.Add(new Venue()
             {
+                Key = "theater-foyer",
+                Name = "Theater Foyer"
+            });
+            venues.Add(new Venue()
+            {
                 Key = "expo-theater",
                 Name = "Expo Theater"
             });
