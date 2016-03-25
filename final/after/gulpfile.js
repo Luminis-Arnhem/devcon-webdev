@@ -46,13 +46,13 @@ gulp.task('build-templates', function () {
  * @return {Stream}
  */
 gulp.task('build-ts', function () {
-    return gulp.src([config.ts.dts,config.ts.ts,config.ts.noSpec])
+    return gulp.src([config.ts.dts, config.ts.ts, config.ts.noSpec])
         .pipe(!args.release ? p.sourcemaps.init() : p.util.noop())
         .pipe(p.typescript(config.tsProject))
         .pipe(p.concat(config.out.custom))
         .pipe(!args.release ? p.sourcemaps.write() : p.util.noop())
         .pipe(args.release ? p.ngAnnotate() : p.util.noop())
-        .pipe(args.release ? p.uglify({mangle:false}) : p.util.noop())
+        .pipe(args.release ? p.uglify({ mangle: false }) : p.util.noop())
         .pipe(gulp.dest(config.build))
         .pipe(p.connect.reload());
 });
@@ -62,7 +62,7 @@ gulp.task('build-ts', function () {
  * @return {Stream}
  */
 gulp.task('build-test', function () {
-    return gulp.src([config.ts.dts,config.ts.ts])
+    return gulp.src([config.ts.dts, config.ts.ts])
         .pipe(p.typescript(config.tsProject))
         .pipe(p.concat(config.out.tests))
         .pipe(gulp.dest(config.buildTest));
@@ -99,12 +99,10 @@ gulp.task('tslint', function () {
         .src(config.ts.ts)
         .pipe(p.tslint())
         .pipe(p.tslint.report(p.tslintStylish, {
-            emitError: true,
+            emitError: false,
             sort: true,
             bell: true,
             fullPath: false
-        })).on("error", p.notify.onError({
-            message: 'Error: <%= error.message %>'
         }));
 });
 
@@ -154,30 +152,14 @@ gulp.task('copy-index', function () {
     return copy(config.index);
 });
 
-//gulp.task('test', ['build-spec', 'build-ts'], function () {
-//    // Be sure to return the stream
-//    // NOTE: Using the fake './foobar' so as to run the files
-//    // listed in karma.conf.js INSTEAD of what was passed to
-//    // gulp.src !
-//    return gulp.src('./foobar')
-//      .pipe(p.karma({
-//          configFile: 'karma.conf.js',
-//          action: 'run'
-//      }))
-//      .on('error', function (err) {
-//          // Make sure failed tests cause gulp to exit non-zero
-//          console.log(err);
-//          this.emit('end'); //instead of erroring the stream, end it
-//      });
-//});
 /**
  * Run test once and exit
  */
-gulp.task('test',['build-test','build-libs-test', 'build-templates'], function (done) {
+gulp.task('test', ['build-test', 'build-libs-test', 'build-templates'], function (done) {
     new Server({
         configFile: __dirname + '/karma.conf.js',
         singleRun: true
-    }, done).start();
+    }, done);
 });
 /**
  * deletes all the content from the build folder
@@ -204,7 +186,7 @@ gulp.task('connect', function () {
 gulp.task('build', ['build-ts', 'build-templates', 'build-libs', 'copy-images', 'build-sass', 'copy-index', 'copy-fonts', 'tslint'], function () {
     if (!args.release) {
         return gulp.start('watch-dev');
-    }else{
+    } else {
         return gulp.start('test');
     }
 });
@@ -219,6 +201,7 @@ gulp.task('watch-dev', function () {
     gulp.watch(config.ts.ts, ['build-ts', 'tslint']);
     gulp.watch(config.sass, ['build-sass']);
     gulp.watch(config.index, ['copy-index']);
+    gulp.watch(config.ts.spec, ['test']);
 });
 
 gulp.task('clean-build', ['clean'], function () {
