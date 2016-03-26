@@ -13,8 +13,8 @@ namespace Venue {
            
         public getTalksByVenue(venueKey: string): angular.IPromise<Talk.Talk[]> {
                 return this.$http.get(this.$urlConfig + "").then((returnData) => {
-                let result: Talk.Talk[] = <Talk.Talk[]>returnData.data;
-                return result;
+                    let result: Talk.Talk[] = <Talk.Talk[]>returnData.data;
+                    return result;
                 });
             }   
     } 
