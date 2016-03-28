@@ -5,11 +5,13 @@ namespace Talk {
     
     export class Talk {
          public title: string;
+         
+         public key: string;
 
          public description: string;
 
-         public timeslot: Timeslot.Timeslot;
+         public TimeSlotKey: string
 
-         public venue: Venue.Venue;
+         public venueKey: string;
     }
 }

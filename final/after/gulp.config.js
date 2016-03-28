@@ -38,8 +38,7 @@ module.exports = function () {
             bower_components + 'font-awesome/fonts/*'],
         images: app + '/**/images/**/*',
         sass: [
-            app + '/**/*.scss',
-            bower_components + 'font-awesome/scss/font-awesome.scss'
+            app + '/styles.scss'
         ],
         tsProject: tsProject
     };

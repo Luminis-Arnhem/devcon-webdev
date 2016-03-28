@@ -1,6 +1,8 @@
-$red: red;
+$white: white;
 
 body{
-    background-color:$red;
-    transform: rotate(90deg);
+    background-color: $white;
 }
+
+@import "../bower_components/bootstrap/dist/css/bootstrap";
+@import "../bower_components/font-awesome/css/font-awesome";
