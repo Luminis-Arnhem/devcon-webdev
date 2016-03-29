@@ -3,11 +3,13 @@
 /// <reference path="../../app/people/people.controller.ts" />
 
 describe("peopleController", function () {
-
+    let controller;
+    beforeEach(() => {
+        controller = new People.PeopleController();
+     });
      it("check if the setVariable actually sets the variable", () => {
-        let controller = new People.PeopleController();
         controller.setSomeVariable();
-        expect(controller.someVariable).toEqual("somethingg");
+        expect(controller.someVariable).toEqual("something");
     });
 
     describe("Controller with angular" , function () {
@@ -26,8 +28,8 @@ describe("peopleController", function () {
 
         it("check if the setVariable actually sets the variable", () => {
             let $scope = {};
-            let controller: People.PeopleController = $controller("PeopleController", { $scope: $scope });
-            controller.setSomeVariable();
+            let ctrl: People.PeopleController = $controller("PeopleController", { $scope: $scope });
+            ctrl.setSomeVariable();
             expect(controller.someVariable).toEqual("something");
         });
     });

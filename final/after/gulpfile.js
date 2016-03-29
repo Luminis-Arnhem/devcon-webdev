@@ -73,7 +73,7 @@ gulp.task('build-test', function () {
  * @return {Stream}
  */
 gulp.task('build-sass', function () {
-    log("Bulding sass")
+    log("Bulding sass");
     return gulp.src(config.sass)
         .pipe(p.sass({
             sourceComments: !args.release
@@ -159,7 +159,7 @@ gulp.task('test', ['build-test', 'build-libs-test', 'build-templates'], function
     new Server({
         configFile: __dirname + '/karma.conf.js',
         singleRun: true
-    }, done);
+    }, done).start();
 });
 /**
  * deletes all the content from the build folder

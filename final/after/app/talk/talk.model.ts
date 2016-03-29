@@ -10,7 +10,7 @@ namespace Talk {
 
          public description: string;
 
-         public TimeSlotKey: string
+         public TimeSlotKey: string;
 
          public venueKey: string;
     }
