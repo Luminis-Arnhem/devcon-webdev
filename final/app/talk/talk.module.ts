@@ -5,15 +5,20 @@
 
 namespace Talk {
     
-    let talkModule: angular.IModule = angular.module("talk", ["templates","ui.router", "common"]);
+    let talkModule: angular.IModule = angular.module("talk", ["common"]);
     
     let talkView = "talk/partials/talks.html";
+    let talkDetail = "talk/partials/talk.html";
     
     talkModule.config(($stateProvider: any) => {
             $stateProvider.state("talks", {
                 controller: "talkController as ctrl",
                 templateUrl: talkView,
-                url: "/",
+                url: "/talks",
+            }).state("talks.detail", {
+                controller: "talkController as ctrl",
+                templateUrl: talkDetail,
+                url: "/:talkkey",
             });
         });
     
