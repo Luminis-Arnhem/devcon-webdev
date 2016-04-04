@@ -4,7 +4,7 @@
 
 namespace Venue {
     
-    let venueModule: angular.IModule = angular.module("venue", ["ui.router"]);
+    let venueModule: angular.IModule = angular.module("venue", ["ui.router","common"]);
     
     let venueView = "venue/partials/venues.html";
     

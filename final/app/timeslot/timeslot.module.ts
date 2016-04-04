@@ -4,7 +4,7 @@
 
 namespace Timeslot {
     
-    let timeslotModule: angular.IModule = angular.module("timeslot", ["ui.router"]);
+    let timeslotModule: angular.IModule = angular.module("timeslot", ["ui.router","common"]);
     
     let timeslotView = "timeslot/partials/timeslots.html";
     

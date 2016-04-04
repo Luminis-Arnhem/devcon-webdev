@@ -6,5 +6,5 @@
 
 
 const appName = "devcon-webdev";
-let appModule: angular.IModule = angular.module(appName, ["templates", "ui.router", "talk", "venue", "timeslot", "Common"]);
+let appModule: angular.IModule = angular.module(appName, ["templates", "ui.router", "talk", "venue", "timeslot"]);
 angular.bootstrap(document, [appName]);
