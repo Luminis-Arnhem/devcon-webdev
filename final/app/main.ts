@@ -6,5 +6,7 @@
 
 
 const appName = "devcon-webdev";
-let appModule: angular.IModule = angular.module(appName, ["templates", "ui.router", "talk", "venue", "timeslot"]);
+/* tslint:disable:no-unused-variable */ 
+let appModule: angular.IModule = angular.module(appName, ["talk", "venue", "timeslot"]);
+/* tslint:enable:no-unused-variable */ 
 angular.bootstrap(document, [appName]);

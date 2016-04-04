@@ -5,7 +5,7 @@
 
 namespace Talk {
     
-    let talkModule: angular.IModule = angular.module("talk", ["ui.router","common"]);
+    let talkModule: angular.IModule = angular.module("talk", ["templates","ui.router", "common"]);
     
     let talkView = "talk/partials/talks.html";
     
