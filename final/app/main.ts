@@ -4,7 +4,12 @@
 /// <reference path="timeslot/timeslot.module.ts" />
 /// <reference path="common/common.module.ts" />
 
-
 const appName = "devcon-webdev";
-let appModule: angular.IModule = angular.module(appName, ["templates", "ui.router", "talk", "venue", "timeslot"]);
+let appModule: angular.IModule = angular.module(appName, ["templates", "ui.router", "talk", "venue", "timeslot", "common"]);
+
+appModule.config(($urlRouterProvider: angular.ui.IUrlRouterProvider) => {
+        $urlRouterProvider
+                .otherwise("/talks");
+        });
+        
 angular.bootstrap(document, [appName]);
