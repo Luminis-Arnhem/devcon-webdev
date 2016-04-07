@@ -28,6 +28,19 @@ describe("Talk", function () {
 
             $httpBackend.flush();
         });
+        it("should handle error", () => {
+            $httpBackend.when("GET", urlConfig + "talks").respond(500);
+
+            let hasCatch = false;
+            talkService.getAllTalks().catch(() => {
+                hasCatch = true;
+            });
+            expect($httpBackend.flush()).not.toThrow();
+            expect(hasCatch).toBeTruthy();
+        });
+        afterEach(() => {
+            $httpBackend.verifyNoOutstandingRequest();
+        });
     });
     describe("TalkController", function () {
         beforeEach(angular.mock.module("talk"));
