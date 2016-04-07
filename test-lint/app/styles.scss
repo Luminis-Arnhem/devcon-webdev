@@ -1,0 +1,8 @@
+$white: white;
+
+body{
+    background-color: $white;
+}
+
+@import "../bower_components/bootstrap/dist/css/bootstrap";
+@import "../bower_components/font-awesome/css/font-awesome";
