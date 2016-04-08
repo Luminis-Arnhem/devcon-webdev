@@ -12,26 +12,31 @@ describe("Talk", function () {
 
         let $httpBackend: angular.IHttpBackendService;
         let urlConfig: string;
+        let talkService: Talk.ITalkService;
 
-        beforeEach(inject((/*talkservice*/, _$httpBackend_, _urlConfig_) => {
+        beforeEach(inject((/* talkservice, */_$httpBackend_, _urlConfig_) => {
             $httpBackend = _$httpBackend_;
             urlConfig = _urlConfig_;
         }));
+        
         it("should return talks", () => {
             $httpBackend.when("GET", urlConfig + "talks").respond(200, talkData);
             
-            //add get talks test
+            // add get talks test
             
-
+            talkService.getAllTalks().then(() => {
+                expect(false).toBe(true);
+            });
+            
             $httpBackend.flush();
         });
         it("should handle error", () => {
             $httpBackend.when("GET", urlConfig + "talks").respond(500);
 
             let hasCatch = false;
-            // talkService.getAllTalks().catch(() => {
-            //     hasCatch = true;
-            // });
+            talkService.getAllTalks().catch(() => {
+                hasCatch = true;
+            });
             expect($httpBackend.flush()).not.toThrow();
             expect(hasCatch).toBeTruthy();
         });
@@ -43,7 +48,7 @@ describe("Talk", function () {
         beforeEach(angular.mock.module("talk"));
         let $controller;
         let $state;
-        let talkService;
+        let talkService: Talk.ITalkService;
 
         beforeEach(inject((_$state_, _$controller_, _talkService_) => {
             // The injector unwraps the underscores (_) from around the parameter names when matching
