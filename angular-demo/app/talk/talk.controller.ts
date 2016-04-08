@@ -9,16 +9,7 @@ namespace Talk {
     
     export class TalkController {
       
-      public talks: Talk[];
-      
       constructor(public talkService: ITalkService, $state: any) {
-          this.getTalks();
-      }
-      
-      public getTalks() {
-          this.talkService.getAllTalks().then((talks: Talk[]) => {
-             this.talks = talks; 
-          });
       }
     }
 }
