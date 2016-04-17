@@ -1,3 +1,4 @@
+/// <reference path="../../typings/tsd.d.ts" />
 ///<reference path="../venue/venue.model.ts" />
 ///<reference path="../timeslot/timeslot.model.ts" />
 

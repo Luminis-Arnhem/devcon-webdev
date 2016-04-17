@@ -1,5 +1,6 @@
+/// <reference path="../../typings/tsd.d.ts" />
+
 namespace Venue {
-    
     export class VenueController {
         public venues: Venue[];
       
