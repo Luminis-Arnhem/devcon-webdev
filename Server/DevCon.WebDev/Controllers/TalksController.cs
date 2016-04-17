@@ -53,7 +53,8 @@ namespace DevCon.WebDev.Controllers
             talks.Add(new Talk()
             {
                 Key = "keynote-session",
-                Title = "Keynote session",
+                Title = "Keynote session: One Step Beyond - How We Go Beyond The Things That Limit Us",
+                Description = "<p>Chris Moon is one of the luckiest people to be alive you’re likely to meet. He’s one of the few westerners to survive as a prisoner of Khmer Rouge guerrillas in Cambodia and being blown up walking in a safe area of a minefield in remote East Africa. The surgeon who treated him said he’d never seen anyone live with such a small amount of blood. He left hospital within seven weeks, did his first marathon within a year of leaving hospital and at the same time successfully completed a Masters Degree. He became the world’s first amputee ultra distance runner in 1997 and has completed many of the world’s toughest ultras and runs faster now than at any point since he was blown up. His humorous and uplifting experiences and philosophy can equip us to challenge our concept of limitation and become the best version of ourselves that we can be.</p>",
                 TimeSlotKey = "time-2",
                 VenueKey = "expo-theater"
             });
@@ -139,6 +140,7 @@ namespace DevCon.WebDev.Controllers
             {
                 Key = "webdev",
                 Title = "Font-end web development for back-end developers",
+                Description = "<p>In the past back-end developers have frowned upon front-end web development, but with the introduction of proper programming languages, build tools and frameworks, front-end development has grown up. In this talk I want to introduce you to my favourite front-end development stack: AngularJS, Typescript and Gulp. AngularJS is been around for a while now, and is a great framework and gives you a clear structure, separation of concerns, templating engine and much more. </p ><p>JavaScript, you either love it or hate it, I know for developers who are used to java or C# it is probably the latter. Would it not be nice if we could use classes, interfaces, type safety, object inheritance, and I can go on.. Typescript gives you all that and much more.</p><p>Ok, so now you have your code nicely written in typescript modules and classes, organized in angular views controllers and services.But how do you prevent the browser from loading 30 + JavaScript files? And would it not be nice if you could debug your typescript code in the browser, compile typescript whenever there is a change, and do you really want to run the same code in development as in production? This is where Gulp comes in handy to fully automate your build process.</p>",
                 TimeSlotKey = "time-7",
                 VenueKey = "cinema-5"
             });

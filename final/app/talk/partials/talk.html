@@ -2,5 +2,5 @@
   <dt>Title</dt>
   <dd>{{ctrl.talk.title}}</dd>
   <dt>Description</dt>
-  <dd>{{ctrl.talk.description}}</dd>
+  <dd ng-bind-html="ctrl.talk.description | sanitize"></dd>
 </dl>
