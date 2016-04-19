@@ -1,7 +1,6 @@
+/// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="timeslot.service.ts" />
 /// <reference path="timeslot.model.ts" />
-
-
 
 namespace Timeslot {
     export class TimeslotController {

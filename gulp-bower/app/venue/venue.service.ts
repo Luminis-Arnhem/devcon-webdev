@@ -1,6 +1,5 @@
-/// <reference path="venue.model.ts" />
 /// <reference path="../../typings/tsd.d.ts" />
-
+/// <reference path="venue.model.ts" />
 
 namespace Venue {
     

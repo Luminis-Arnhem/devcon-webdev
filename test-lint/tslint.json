@@ -51,7 +51,7 @@
       "check-finally",
       "check-whitespace"
     ],
-    "quotemark": [ false, "double", "avoid-escape" ],
+    "quotemark": [ true, "double", "avoid-escape" ],
     "radix": true,
     "semicolon": true,
     "trailing-comma": [

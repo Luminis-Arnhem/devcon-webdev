@@ -13,7 +13,6 @@ namespace Talk {
 
         /* @ngInject */
         constructor(public $http: angular.IHttpService, public urlConfig: string) {
-            
         }
         
         public getAllTalks(): angular.IPromise<Talk[]> {

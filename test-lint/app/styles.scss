@@ -1,7 +1,10 @@
 $white: white;
+$header-height:70px;
 
 body{
     background-color: $white;
+    padding-top:$header-height;
+    padding-bottom: 30px;
 }
 
 @import "../bower_components/bootstrap/dist/css/bootstrap";

@@ -173,8 +173,9 @@ gulp.task('clean', function () {
 
 gulp.task('connect', function () {
     p.connect.server({
+        port: 8082,
         root: config.build,
-        livereload: true
+        livereload: {port:4001}
     });
 });
 

@@ -2,10 +2,13 @@
 var gulp = require('gulp');
 var p = require('gulp-load-plugins')({ lazy: true });
 var args = require('yargs').argv;
+var concat = require('gulp-concat');
 var Server = require('karma').Server;
-var lib = require('bower-files')();
 
 var tsProject = p.typescript.createProject(config.tsProject);
+
+var lib = require('bower-files')();
+var concat = require('gulp-concat');
 
 /**
  * Builds the external libraries into a single javascript file
@@ -13,9 +16,8 @@ var tsProject = p.typescript.createProject(config.tsProject);
  * @return {Stream}
  */
 gulp.task('build-libs', function () {
-    // get libs
+    // get js files
     // concat
-    // uglyfy 
     // dest
 });
 /**
@@ -25,7 +27,7 @@ gulp.task('build-libs', function () {
  */
 gulp.task('build-libs-test', function () {
     return gulp.src(lib.dev().ext('js').files)
-        .pipe(p.concat(config.out.libs))
+        .pipe(concat(config.out.libs))
         .pipe(gulp.dest(config.buildTest));
 });
 /**
@@ -172,8 +174,9 @@ gulp.task('clean', function () {
 
 gulp.task('connect', function () {
     p.connect.server({
+        port: 8081,
         root: config.build,
-        livereload: true
+        livereload: {port:4000}
     });
 });
 

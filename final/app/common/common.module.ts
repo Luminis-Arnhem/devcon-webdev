@@ -9,8 +9,8 @@ namespace Common {
     });
     appModule.constant("urlConfig", "http://devconwebdev.azurewebsites.net/api/");
     appModule.filter("sanitize", ($sce: angular.ISCEService) => {
-        return (htmlCode)=>{
+        return (htmlCode) => {
             return $sce.trustAsHtml(htmlCode);
-        }
+        };
     });
 }

@@ -1,6 +1,8 @@
 <table class="table table-striped">
     <tr ng-repeat="timeslot in ctrl.timeslots">
-        <td> {{ timeslot.begin }} </td>
-        <td> {{ timeslot.end}} </td>
+        <td width="1">Begin:</td>
+        <td> {{ timeslot.begin | date:'medium' }} </td>
+        <td width="1">End:</td>
+        <td> {{ timeslot.end | date:'medium' }} </td>
     </tr>    
 </table>

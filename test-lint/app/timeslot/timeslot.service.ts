@@ -1,3 +1,4 @@
+/// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="timeslot.model.ts" />
 
 namespace Timeslot {
