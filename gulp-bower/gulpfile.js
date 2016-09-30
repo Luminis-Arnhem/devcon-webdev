@@ -211,7 +211,7 @@ gulp.task('clean-build', ['clean'], function () {
 });
 
 /**
- * cleans builds and if release sta
+ * cleans builds and not in release starts the webserver
  */
 gulp.task('default', ['clean-build'], function () {
     if (!args.release) {

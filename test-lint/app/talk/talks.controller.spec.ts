@@ -35,7 +35,7 @@ describe("Talk", function () {
             talkService.getAllTalks().catch(() => {
                 hasCatch = true;
             });
-            expect($httpBackend.flush()).not.toThrow();
+            expect(() => $httpBackend.flush()).not.toThrow();
             expect(hasCatch).toBeTruthy();
         });
         afterEach(() => {

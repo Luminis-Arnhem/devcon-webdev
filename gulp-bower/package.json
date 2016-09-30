@@ -35,7 +35,7 @@
     "phantomjs-prebuilt": "^2.1.4",
     "tslint": "^3.4.0",
     "tslint-stylish": "^2.1.0-beta",
-    "typescript": "^1.7.3",
+    "typescript": "^2.0.3",
     "yargs": "^4.1.0"
   }
 }
