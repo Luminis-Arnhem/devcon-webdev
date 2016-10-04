@@ -174,6 +174,7 @@ gulp.task('clean', function () {
 gulp.task('connect', function () {
     p.connect.server({
         root: config.build,
+        port: 8083,
         livereload: true
     });
 });

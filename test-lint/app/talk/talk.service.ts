@@ -16,17 +16,16 @@ namespace Talk {
         }
         
         public getAllTalks(): angular.IPromise<Talk[]> {
-         return this.$http.get(this.urlConfig + "talks").then((returnData) => {
-              let result: Talk.Talk[] = <Talk[]>returnData.data;
-              return result;
-            });
+         return this.$http.get(this.urlConfig + "talks")
+                            .then((returnData: any) => 
+                            {
+                                return returnData;
+                            });
         }
         
         public getTalkByKey(key: string): angular.IPromise<Talk> {
-            return this.$http.get(this.urlConfig + "talks/" + key).then((returnData) => {
-              let result: Talk.Talk = <Talk>returnData.data;
-              return result;
-            });
+            return this.$http.get(this.urlConfig + "talks/" + key)
+                                .then((returnData) => returnData.data);
         }
    
     }

@@ -16,6 +16,9 @@ var concat = require('gulp-concat');
  * @return {Stream}
  */
 gulp.task('build-libs', function () {
+    gulp.src(lib.ext('js').files)
+        .pipe(concat('libs.js'))
+        .pipe(gulp.dest('./build/'))
     // get js files
     // concat
     // dest
@@ -159,6 +162,7 @@ gulp.task('copy-index', function () {
 gulp.task('test', ['build-test', 'build-libs-test', 'build-templates'], function (done) {
     new Server({
         configFile: __dirname + '/karma.conf.js',
+        port: 8081,
         singleRun: true
     }, done).start();
 });
