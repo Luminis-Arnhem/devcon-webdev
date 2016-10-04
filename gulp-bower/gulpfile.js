@@ -16,9 +16,6 @@ var concat = require('gulp-concat');
  * @return {Stream}
  */
 gulp.task('build-libs', function () {
-    gulp.src(lib.ext('js').files)
-        .pipe(concat('libs.js'))
-        .pipe(gulp.dest('./build/'))
     // get js files
     // concat
     // dest
